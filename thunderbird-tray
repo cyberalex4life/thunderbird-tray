@@ -1,0 +1,15 @@
+#! /bin/bash
+WINDOW_PARTIAL_NAME="Mozilla Thunderbird"
+PROGRAM=thunderbird
+if [ -z "$(WINDOW_ID=$(xdotool search --onlyvisible --name \"$WINDOW_PARTIAL_NAME\"); echo $WINDOW_ID)" ] && [ -z "$(pidof $PROGRAM)" ]; then
+    $PROGRAM $@ &
+    WINDOW_ID=$(printf 0x%x $(xdotool search --onlyvisible --sync  --name "$WINDOW_PARTIAL_NAME")) # WINDOW_ID in hex
+    kdocker -w $WINDOW_ID -q &
+else
+    WINDOW_ID=$(xdotool search --onlyvisible --name "$WINDOW_PARTIAL_NAME")
+    if [ -z "$WINDOW_ID" ]; then 
+        $PROGRAM $@ &
+    else 
+        xdotool windowminimize $WINDOW_ID
+    fi    
+fi
