@@ -6,7 +6,7 @@
 - kdocker
 - xdotool 
 
-Please place this script in a location form PATH environment variable and make it executable (`/usr/bin`; `/usr/local/bin`; `~/bin`):
+Please place this script in a location form PATH environment variable and make it executable (`/usr/bin`; `/usr/local/bin`; `~/bin`), then:
 
 ##### $ sudo chmod +x \[thunderbird-tray path\]/thunderbird-tray
 
