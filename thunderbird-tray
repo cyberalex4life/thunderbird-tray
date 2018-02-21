@@ -1,17 +1,18 @@
 #! /bin/bash
-# thunderbird-tray 
-# 
+
+# thunderbird-tray
+#
 # Copyright (C) 2018  Alexandru-Catalin Petrini (alexandru.c.petrini@gmail.com)
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, version 3 of the License.
 
-# This program is distributed in the hope that it will be useful,# # # 
+# This program is distributed in the hope that it will be useful,# # #
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -20,12 +21,13 @@ PROGRAM=thunderbird
 if [ -z "$(WINDOW_ID=$(xdotool search --onlyvisible --name \"$WINDOW_PARTIAL_NAME\"); echo $WINDOW_ID)" ] && [ -z "$(pidof $PROGRAM)" ]; then
     $PROGRAM $@ &
     WINDOW_ID=$(printf 0x%x $(xdotool search --onlyvisible --sync  --name "$WINDOW_PARTIAL_NAME")) # WINDOW_ID in hex
-    kdocker -w $WINDOW_ID -q &
+    sleep 0.5
+    kdocker -w $WINDOW_ID -q -m &
 else
     WINDOW_ID=$(xdotool search --onlyvisible --name "$WINDOW_PARTIAL_NAME")
-    if [ -z "$WINDOW_ID" ]; then 
+    if [ -z "$WINDOW_ID" ]; then
         $PROGRAM $@ &
-    else 
+    else
         xdotool windowminimize $WINDOW_ID
-    fi    
+    fi
 fi
